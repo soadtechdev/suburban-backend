@@ -25,12 +25,12 @@ export enum ResponseStatus {
   INTERNAL_ERROR = 500
 }
 
-export const SuccessResponse = (res: Response, msg = 'OK', data: any = false): Response => {
+export const SuccessResponse = (res: Response, msg = 'OK', data: any = undefined): Response => {
   const body = {
     message: msg,
     StatusCode: StatusCode.SUCCESS
   }
-  if (data) Object.assign(body, data)
+  if (data !== undefined) Object.assign(body, data)
   return res.status(ResponseStatus.SUCCESS).json(body)
 }
 

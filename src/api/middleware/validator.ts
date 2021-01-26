@@ -12,25 +12,21 @@ export enum ValidationSource {
 
 export const JoiAuthBasic = (): StringSchema =>
   Joi.string().custom((value: string, helpers) => {
-    if (!value.startsWith('Basic ') || !value.split(' ')[1]) return helpers.error('any.invalid')
+    if (!value.startsWith('Basic ') || value.split(' ')[1] === '') return helpers.error('any.invalid')
     return value
   }, 'Authorization Header Validation')
 
 export const JoiAuthBearer = (): StringSchema =>
   Joi.string().custom((value: string, helpers) => {
     if (!value.startsWith('Bearer ')) return helpers.error('any.invalid')
-    if (!value.split(' ')[1]) return helpers.error('any.invalid')
+    if (value.split(' ')[1] === '') return helpers.error('any.invalid')
     return value
   }, 'Authorization Header Validation')
 
-export default (schema: Joi.ObjectSchema, source: ValidationSource = ValidationSource.BODY) => (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export default (schema: Joi.ObjectSchema, source: ValidationSource = ValidationSource.BODY) => (req: Request, res: Response, next: NextFunction) => {
   const { error } = schema.validate(req[source])
 
-  if (!error) return next()
+  if (error === undefined) return next()
 
   const { details } = error
   const message = details.map((i) => i.message.replace(/['"]+/g, '')).join(',')
