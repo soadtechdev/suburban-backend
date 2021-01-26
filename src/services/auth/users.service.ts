@@ -39,8 +39,14 @@ export default class UsersService {
     }
   }
 
-  comparePassword = async (confirmPassword: string, password: string): Promise<Number> => {
-    return 1
+  comparePassword = async (confirmPassword: string, password: string): Promise<boolean> => {
+    try {
+      const data = await bcrypt.compare(confirmPassword, password)
+      return data
+    } catch (e) {
+      Logger.error(colors.red('Error comparePassword '), e)
+      throw e
+    }
   }
 
   signToken = (data: Record<string, unknown>): string => {
