@@ -1,29 +1,20 @@
 {
-  "name": "backend-goldi",
+  "name": "backend-suburban",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "",
-    "dev": "ts-node-dev src/app.ts",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "build": "npm run compile && npm run prebuild",
-    "compile": "rm -rf dist && tsc",
-    "prebuild": "webpack --config webpack.config.js",
-    "check-updates": "ncu"
+  "main": "webpack.config.js",
+  "dependencies": {
+    "pg": "^8.5.1",
+    "bcrypt": "^5.0.0",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/soadtech/backend-goldi.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/soadtech/backend-goldi/issues"
-  },
-  "homepage": "https://github.com/soadtech/backend-goldi#readme",
   "devDependencies": {
     "@tsconfig/node14": "^1.0.0",
     "@types/bcrypt": "^3.0.0",
@@ -34,6 +25,7 @@
     "@types/morgan": "^1.9.2",
     "@types/multer": "^1.4.5",
     "@types/mysql": "^2.15.17",
+    "@types/pg": "^7.14.9",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "eslint": "^7.18.0",
     "eslint-config-standard-with-typescript": "^19.0.1",
@@ -52,15 +44,17 @@
     "webpack-cli": "^4.3.1",
     "webpack-node-externals": "^2.5.2"
   },
-  "dependencies": {
-    "bcrypt": "^5.0.0",
-    "colors": "^1.4.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "joi": "^17.3.0",
-    "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
-    "multer": "^1.4.2",
-    "mysql": "^2.18.1"
-  }
+  "scripts": {
+    "start": "",
+    "dev": "ts-node-dev src/app.ts",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "build": "npm run compile && npm run prebuild",
+    "compile": "rm -rf dist && tsc",
+    "prebuild": "webpack --config webpack.config.js",
+    "check-updates": "ncu"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -1,25 +1,22 @@
-import * as querys from './querys'
-import pool from '../../loaders/mysql'
 import { User } from '../../interfaces/users.interfaces'
 
 export default class UsersModel {
   private static instance: UsersModel
 
   public static getInstance (): UsersModel {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!UsersModel.instance) {
       UsersModel.instance = new UsersModel()
     }
     return UsersModel.instance
   }
 
-  findByEmail = async (email: string): Promise<User | undefined> => {
-    const result: any = await pool.query(querys.findByEmail, [email])
-    return result[0]
+  findByEmail = async (email: string): Promise<Number> => {
+    return 1
   }
 
   save = async ({ nombre, apellido, celular, password, correo }: User): Promise<number | undefined> => {
-    const result: any = await pool.query(querys.save, [nombre, apellido, correo, password, celular])
-    return result.insertId
+    return 1
   }
 
   /* validate = async (identificadorPersona: string): Promise<boolean> => {

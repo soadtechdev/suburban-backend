@@ -1,13 +1,8 @@
-import colors from 'colors'
-import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import { User } from '../../interfaces/users.interfaces'
-import UsersModel from '../../models/auth/users.model'
-import Logger from '../../helpers/logger'
 import { secretKey } from '../../config'
 
-const usersModel = UsersModel.getInstance()
 export default class UsersService {
   private static instance: UsersService
 
@@ -19,38 +14,16 @@ export default class UsersService {
     return UsersService.instance
   }
 
-  findByEmail = async (email: string): Promise<User | undefined> => {
-    try {
-      const result = await usersModel.findByEmail(email)
-      return result
-    } catch (error) {
-      Logger.error(colors.red('Error UsersService findByEmail '), error)
-      throw new Error('ERROR TECNICO')
-    }
+  findByEmail = async (email: string): Promise<Number | undefined> => {
+    return 1
   }
 
   save = async ({ nombre, apellido, celular, correo, password }: User): Promise<any> => {
-    try {
-      const passwordHash = await bcrypt.hash(password, 10)
-      const userId = await usersModel.save({ nombre, apellido, celular, password: passwordHash, correo })
-      const data = {
-        id: userId
-      }
-      return data
-    } catch (e) {
-      Logger.error(colors.red('Error UsersService save '), e)
-      throw new Error('ERROR TECNICO')
-    }
+    console.log('hola')
   }
 
-  comparePassword = async (confirmPassword: string, password: string): Promise<boolean> => {
-    try {
-      const data = await bcrypt.compare(confirmPassword, password)
-      return data
-    } catch (e) {
-      Logger.error(colors.red('Error comparePassword '), e)
-      throw e
-    }
+  comparePassword = async (confirmPassword: string, password: string): Promise<Number> => {
+    return 1
   }
 
   signToken = (data: Record<string, unknown>): string => {
