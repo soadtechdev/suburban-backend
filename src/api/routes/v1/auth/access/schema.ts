@@ -10,7 +10,8 @@ export default {
     apellido: Joi.string().required().min(3),
     celular: Joi.string().required(),
     correo: Joi.string().email().required(),
-    password: Joi.string().required().min(6)
+    password: Joi.string().required().min(6),
+    imagen: Joi.string().required()
   }),
   login: Joi.object().keys({
     correo: Joi.string().email().required(),

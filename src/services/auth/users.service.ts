@@ -1,8 +1,12 @@
+import colors from 'colors'
 import jwt from 'jsonwebtoken'
-
+import bcrypt from 'bcrypt'
 import { User } from '../../interfaces/users.interfaces'
 import { secretKey } from '../../config'
+import UsersModel from '../../models/auth/users.model'
+import Logger from '../../helpers/logger'
 
+const usersModel = UsersModel.getInstance()
 export default class UsersService {
   private static instance: UsersService
 
@@ -14,12 +18,25 @@ export default class UsersService {
     return UsersService.instance
   }
 
-  findByEmail = async (email: string): Promise<Number | undefined> => {
-    return 1
+  findByEmail = async (email: string): Promise<User | undefined> => {
+    try {
+      const result = await usersModel.findByEmail(email)
+      return result
+    } catch (error) {
+      Logger.error(colors.red('Error UsersService findByEmail '), error)
+      throw new Error('ERROR TECNICO')
+    }
   }
 
-  save = async ({ nombre, apellido, celular, correo, password }: User): Promise<any> => {
-    console.log('hola')
+  save = async ({ nombre, apellido, celular, correo, password, imagen }: User): Promise<any> => {
+    try {
+      const passwordHash = await bcrypt.hash(password, 10)
+      const userId = await usersModel.save({ nombre, apellido, celular, password: passwordHash, correo, imagen })
+      return userId
+    } catch (e) {
+      Logger.error(colors.red('Error UsersService save '), e)
+      throw new Error('ERROR TECNICO')
+    }
   }
 
   comparePassword = async (confirmPassword: string, password: string): Promise<Number> => {

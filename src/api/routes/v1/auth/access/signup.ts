@@ -14,6 +14,7 @@ export const validateEmailUser: RequestHandler = async (req: Request, res: Respo
     const { correo: email } = req.body as User
 
     const user = await usersService.findByEmail(email)
+    console.log(user)
     if (user !== undefined) return BadRequestError(res, 'User already registered')
 
     next()

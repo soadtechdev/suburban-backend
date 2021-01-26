@@ -1,3 +1,3 @@
-export const findByEmail = 'SELECT u.* FROM usuarios u WHERE correo = ?'
+export const findByEmail = 'SELECT u.* FROM users u WHERE correo = $1'
 
-export const save = 'INSERT INTO usuarios (nombre , apellido, correo , password, celular) VALUES (?, ?, ?, ?, ?)'
+export const save = 'INSERT INTO users (nombre, apellido, imagen, correo, celular, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id'
