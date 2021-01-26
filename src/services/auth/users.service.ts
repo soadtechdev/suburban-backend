@@ -29,10 +29,10 @@ export default class UsersService {
     }
   }
 
-  save = async ({ nombre, apellido, celular, correo, password, imagen }: User): Promise<any> => {
+  save = async ({ nombre, apellido, celular, correo, password, imagen, tipo }: User): Promise<any> => {
     try {
       const passwordHash = await bcrypt.hash(password, 10)
-      const userId = await usersModel.save({ nombre, apellido, celular, password: passwordHash, correo, imagen })
+      const userId = await usersModel.save({ nombre, apellido, celular, password: passwordHash, correo, imagen, tipo })
       return userId
     } catch (e) {
       Logger.error(colors.red('Error UsersService save '), e)

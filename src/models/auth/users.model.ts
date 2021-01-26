@@ -18,8 +18,8 @@ export default class UsersModel {
     return rows[0]
   }
 
-  save = async ({ nombre, apellido, celular, password, correo, imagen }: User): Promise<any> => {
-    const { rows } = await pool.query(querys.save, [nombre, apellido, imagen, correo, celular, password])
+  save = async ({ nombre, apellido, celular, password, correo, imagen, tipo }: User): Promise<any> => {
+    const { rows } = await pool.query(querys.save, [nombre, apellido, imagen, correo, celular, password, tipo])
     console.log(rows)
     return rows[0]
   }

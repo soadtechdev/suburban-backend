@@ -11,7 +11,8 @@ export default {
     celular: Joi.string().required(),
     correo: Joi.string().email().required(),
     password: Joi.string().required().min(6),
-    imagen: Joi.string().required()
+    imagen: Joi.string().required(),
+    tipo: Joi.string().required()
   }),
   login: Joi.object().keys({
     correo: Joi.string().email().required(),
