@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken'
 
-import { User } from '../../interfaces/users.interfaces'
-import { secretKey } from '../../config'
+import { User } from 'interfaces/users.interfaces'
+import { secretKey } from 'config'
 
 export default class UsersService {
   private static instance: UsersService
 
-  public static getInstance (): UsersService {
+  public static getInstance(): UsersService {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!UsersService.instance) {
       UsersService.instance = new UsersService()

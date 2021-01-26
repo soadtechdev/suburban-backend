@@ -2,10 +2,10 @@ import { Request, Response, NextFunction, RequestHandler } from 'express'
 
 // import schema from './schema'
 // import validator from '../../../../middleware/validator'
-import { SuccessResponse, InternalError, BadRequestError } from '../../../../../helpers/api.response'
-import Logger from '../../../../../helpers/logger'
-import { User } from '../../../../../interfaces/users.interfaces'
-import UsersService from '../../../../../services/auth/users.service'
+import { SuccessResponse, InternalError, BadRequestError } from 'helpers/api.response'
+import Logger from 'helpers/logger'
+import { User } from 'interfaces/users.interfaces'
+import UsersService from 'services/auth/users.service'
 
 const usersService = UsersService.getInstance()
 

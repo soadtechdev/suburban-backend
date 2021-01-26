@@ -1,10 +1,10 @@
 import express from 'express'
 import colors from 'colors'
 
-import { name, port } from './config'
-import Logger from './helpers/logger'
+import { name, port } from 'config'
+import Logger from 'helpers/logger'
 
-async function startServer (): Promise<void> {
+async function startServer(): Promise<void> {
   const app = express()
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -19,4 +19,6 @@ ${colors.yellow('########################################################')}`)
     .on('error', (e) => Logger.error('error in server.listen', e))
 }
 
-startServer().then(() => Logger.info(colors.green('done ✌️'))).catch((error: Error) => Logger.error(colors.red('error when starting the api'), error))
+startServer()
+  .then(() => Logger.info(colors.green('done ✌️')))
+  .catch((error: Error) => Logger.error(colors.red('error when starting the api'), error))

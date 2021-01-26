@@ -1,5 +1,6 @@
 {
   "*.ts": [
+    "prettier --write .",
     "eslint 'src/***.ts' --fix",
     "git add"
   ]

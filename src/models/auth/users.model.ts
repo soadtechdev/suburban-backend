@@ -1,11 +1,10 @@
-import { User } from '../../interfaces/users.interfaces'
+import { User } from 'interfaces/users.interfaces'
 
 export default class UsersModel {
   private static instance: UsersModel
 
-  public static getInstance (): UsersModel {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!UsersModel.instance) {
+  public static getInstance(): UsersModel {
+    if (UsersModel.instance === undefined) {
       UsersModel.instance = new UsersModel()
     }
     return UsersModel.instance
