@@ -16,7 +16,7 @@ export const db = {
 
 export const corsUrl = process.env.CORS_URL
 
-export const secretKey = process.env.SECRETKEY ?? ''
+export const secretKey = process.env.SECRETKEY ?? 'Jq60gQRdrY'
 
 export const api = {
   prefix: '/v1.0'

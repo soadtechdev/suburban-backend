@@ -5,6 +5,7 @@ export interface User {
   correo: string
   password: string
   celular: string
+  imagen: string
 }
 
 export interface UserCredentials {

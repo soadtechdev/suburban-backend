@@ -1,21 +1,27 @@
-import { User } from 'interfaces/users.interfaces'
+import { User } from '../../interfaces/users.interfaces'
+import { pool } from '../../loaders/pgTools'
+import * as querys from './querys'
 
 export default class UsersModel {
   private static instance: UsersModel
 
   public static getInstance(): UsersModel {
-    if (UsersModel.instance === undefined) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!UsersModel.instance) {
       UsersModel.instance = new UsersModel()
     }
     return UsersModel.instance
   }
 
-  findByEmail = async (email: string): Promise<Number> => {
-    return 1
+  findByEmail = async (email: string): Promise<User | undefined> => {
+    const { rows } = await pool.query(querys.findByEmail, [email])
+    return rows[0]
   }
 
-  save = async ({ nombre, apellido, celular, password, correo }: User): Promise<number | undefined> => {
-    return 1
+  save = async ({ nombre, apellido, celular, password, correo, imagen }: User): Promise<any> => {
+    const { rows } = await pool.query(querys.save, [nombre, apellido, imagen, correo, celular, password])
+    console.log(rows)
+    return rows[0]
   }
 
   /* validate = async (identificadorPersona: string): Promise<boolean> => {

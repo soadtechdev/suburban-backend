@@ -1,29 +1,53 @@
+import colors from 'colors'
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 import { User } from 'interfaces/users.interfaces'
 import { secretKey } from 'config'
+import UsersModel from 'models/auth/users.model'
+import Logger from 'helpers/logger'
 
+const usersModel = UsersModel.getInstance()
 export default class UsersService {
   private static instance: UsersService
 
   public static getInstance(): UsersService {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!UsersService.instance) {
+    if (UsersService.instance === undefined) {
       UsersService.instance = new UsersService()
     }
     return UsersService.instance
   }
 
-  findByEmail = async (email: string): Promise<Number | undefined> => {
-    return 1
+  findByEmail = async (email: string): Promise<User | undefined> => {
+    try {
+      // TODO: quitar any
+      const result: any = await usersModel.findByEmail(email)
+      return result
+    } catch (error) {
+      Logger.error(colors.red('Error UsersService findByEmail '), error)
+      throw new Error('ERROR TECNICO')
+    }
   }
 
-  save = async ({ nombre, apellido, celular, correo, password }: User): Promise<any> => {
-    console.log('hola')
+  save = async ({ nombre, apellido, celular, correo, password, imagen }: User): Promise<any> => {
+    try {
+      const passwordHash = await bcrypt.hash(password, 10)
+      const userId = await usersModel.save({ nombre, apellido, celular, password: passwordHash, correo, imagen })
+      return userId
+    } catch (e) {
+      Logger.error(colors.red('Error UsersService save '), e)
+      throw new Error('ERROR TECNICO')
+    }
   }
 
-  comparePassword = async (confirmPassword: string, password: string): Promise<Number> => {
-    return 1
+  comparePassword = async (confirmPassword: string, password: string): Promise<boolean> => {
+    try {
+      const data = await bcrypt.compare(confirmPassword, password)
+      return data
+    } catch (e) {
+      Logger.error(colors.red('Error comparePassword '), e)
+      throw e
+    }
   }
 
   signToken = (data: Record<string, unknown>): string => {
