@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "dependencies": {
-    "pg": "^8.5.1",
+    "@types/socket.io": "^2.1.13",
     "bcrypt": "^5.0.0",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
@@ -12,7 +12,9 @@
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "pg": "^8.5.1",
+    "socket.io": "^3.1.0"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.0",
@@ -45,13 +47,15 @@
     "webpack-node-externals": "^2.5.2"
   },
   "scripts": {
-    "start": "",
+    "start": "node ./build/suburban-ws.js",
     "dev": "ts-node-dev -r tsconfig-paths/register src/app.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "build": "webpack --config webpack.config.js",
+    "build:fix": "npm run compile && npm run prebuild",
+    "compile": "rm -rf dist && tsc",
+    "prebuild": "webpack --config webpack.config.js && rm -rf dist && cp package.json build",
     "check-updates": "ncu",
-    "upgrade": "npm update --save-dev && npm update --save"
+    "pkg": "npm run build:fix && rm -rf pkg && mkdir pkg && pkg build/package.json --targets node14-win-x64 --output pkg/suburban-ws"
   },
   "keywords": [],
   "author": "",

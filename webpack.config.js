@@ -2,7 +2,7 @@ const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  entry: path.join(__dirname, 'src/app.ts'),
+  entry: path.join(__dirname, 'dist/app.js'),
   mode: 'production',
   output: {
     path: path.join(__dirname, 'build'),
