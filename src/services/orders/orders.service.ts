@@ -39,7 +39,7 @@ export default class OrderService {
       const result: any = await oderModel.finished(orderId, status, motivo)
       return result
     } catch (error) {
-      Logger.error(colors.red('Error OrderService findByEmail '), error)
+      Logger.error(colors.red('Error OrderService finished '), error)
       throw new Error('ERROR TECNICO')
     }
   }
