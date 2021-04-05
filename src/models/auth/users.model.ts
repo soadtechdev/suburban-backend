@@ -1,7 +1,5 @@
 import { User } from '../../interfaces/users.interfaces'
-import { pool } from '../../loaders/pgTools'
-import * as querys from './querys'
-
+import client from '../../loaders/redis'
 export default class UsersModel {
   private static instance: UsersModel
 
@@ -14,14 +12,13 @@ export default class UsersModel {
   }
 
   findByEmail = async (email: string): Promise<User | undefined> => {
-    const { rows } = await pool.query(querys.findByEmail, [email])
-    return rows[0]
+    const result = await client.get(`user_${email}`)
+    return result
   }
 
-  save = async ({ nombre, apellido, celular, password, correo, imagen, tipo }: User): Promise<any> => {
-    const { rows } = await pool.query(querys.save, [nombre, apellido, imagen, correo, celular, password, tipo])
-    console.log(rows)
-    return rows[0]
+  save = async (email: string, data: string): Promise<any> => {
+    const result = await client.set(`user_${email}`, data)
+    return result
   }
 
   /* validate = async (identificadorPersona: string): Promise<boolean> => {

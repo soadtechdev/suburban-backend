@@ -11,11 +11,10 @@ const usersService = UsersService.getInstance()
 
 export const validateEmailUser: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { correo: email } = req.body as User
+    const { email } = req.body as User
 
     const user = await usersService.findByEmail(email)
-    console.log(user)
-    if (user !== undefined) return BadRequestError(res, 'User already registered')
+    if (user !== null) return BadRequestError(res, 'User already registered')
 
     next()
   } catch (error) {
@@ -27,9 +26,9 @@ export const validateEmailUser: RequestHandler = async (req: Request, res: Respo
 export const createUser: RequestHandler = async (req: Request, res: Response) => {
   try {
     const data: User = req.body
-    const { id } = await usersService.save(data)
+    await usersService.save(data)
 
-    return SuccessResponse(res, 'Signup Successful', { data: { id } })
+    return SuccessResponse(res, 'Signup Successful')
   } catch (error) {
     Logger.error(error)
     return InternalError(res)

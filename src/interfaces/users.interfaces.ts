@@ -1,12 +1,13 @@
 export interface User {
   id?: number
-  nombre: string
-  apellido: string
-  correo: string
+  name: string
+  middleName: string
+  email: string
   password: string
-  celular: string
+  phone: number
   imagen: string
-  tipo: string
+  document: string
+  passwordHash: string
 }
 
 export interface UserCredentials {

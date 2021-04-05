@@ -22,17 +22,27 @@ export default class UsersService {
     try {
       // TODO: quitar any
       const result: any = await usersModel.findByEmail(email)
-      return result
+      return result !== null ? JSON.parse(result) : result
     } catch (error) {
       Logger.error(colors.red('Error UsersService findByEmail '), error)
       throw new Error('ERROR TECNICO')
     }
   }
 
-  save = async ({ nombre, apellido, celular, correo, password, imagen, tipo }: User): Promise<any> => {
+  save = async ({ name, middleName, phone, email, password, imagen, document }: User): Promise<any> => {
     try {
       const passwordHash = await bcrypt.hash(password, 10)
-      const userId = await usersModel.save({ nombre, apellido, celular, password: passwordHash, correo, imagen, tipo })
+      const data = {
+        name,
+        middleName,
+        phone,
+        password,
+        passwordHash,
+        email,
+        imagen,
+        document
+      }
+      const userId = await usersModel.save(email, JSON.stringify(data))
       return userId
     } catch (e) {
       Logger.error(colors.red('Error UsersService save '), e)

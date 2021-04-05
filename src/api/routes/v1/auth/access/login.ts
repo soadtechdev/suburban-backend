@@ -12,7 +12,7 @@ export default async (req: Request, res: Response): Promise<Response> => {
     const user = await usersService.findByEmail(correo)
     if (user === undefined) return BadRequestError(res, 'User not register')
 
-    const match = await usersService.comparePassword(password, user.password)
+    const match = await usersService.comparePassword(password, user.passwordHash)
 
     if (match === undefined) return AuthFailureError(res)
     const newUser: any = { ...user }

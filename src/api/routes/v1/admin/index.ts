@@ -1,9 +1,9 @@
 import { Router } from 'express'
 
-import routesOrders from './orders'
+import routesContacts from './contacts'
 
 const router = Router()
 
-router.use('/orders', routesOrders)
+router.use('/contacts', routesContacts)
 
 export default router

@@ -5,7 +5,6 @@ import schema from './access/schema'
 
 const router = Router()
 
-router.post('/create', validator(schema.create), encargos.createEncargo)
-router.post('/:id', validator(schema.changeStatusOrder), encargos.changeStatusOrder)
+router.post('/', validator(schema.create), encargos.createContact)
 
 export default router
