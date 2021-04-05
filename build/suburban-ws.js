@@ -241,17 +241,15 @@
         const n = o(r(320))
         t.default = {
           userCredential: n.default.object().keys({ usuario: n.default.string().required().min(3), clave: n.default.string().required().min(6) }),
-          signup: n.default
-            .object()
-            .keys({
-              nombre: n.default.string().required().min(3),
-              apellido: n.default.string().required().min(3),
-              celular: n.default.string().required(),
-              correo: n.default.string().email().required(),
-              password: n.default.string().required().min(6),
-              imagen: n.default.string().required(),
-              tipo: n.default.string().required()
-            }),
+          signup: n.default.object().keys({
+            nombre: n.default.string().required().min(3),
+            apellido: n.default.string().required().min(3),
+            celular: n.default.string().required(),
+            correo: n.default.string().email().required(),
+            password: n.default.string().required().min(6),
+            imagen: n.default.string().required(),
+            tipo: n.default.string().required()
+          }),
           login: n.default.object().keys({ correo: n.default.string().email().required(), password: n.default.string().required().min(6) }),
           validateUser: n.default.object().keys({ usuario: n.default.string().required().min(3) })
         }
