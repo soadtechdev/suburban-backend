@@ -14,17 +14,18 @@ export default class ContactService {
     return ContactService.instance
   }
 
-  createContact = async (name: string, number: number, email: string, pass: number): Promise<Contact | undefined> => {
+  createContact = async (name: string, number: number, email: string, pass: number, creatorPhone: number): Promise<Contact | undefined> => {
     try {
       const data = {
         name,
         pass,
-        image: 'https://i.ibb.co/g3qbhkY/036-person.png'
+        image: 'https://i.ibb.co/g3qbhkY/036-person.png',
+        creatorPhone
       }
-      const result: any = await contactModel.createContact(number, email, JSON.stringify(data))
+      const result: any = await contactModel.createContact(number, email, creatorPhone, JSON.stringify(data))
       return result
     } catch (error) {
-      Logger.error(colors.red('Error OrderService findByEmail '), error)
+      Logger.error(colors.red('Error contactModel createContact '), error)
       throw new Error('ERROR TECNICO')
     }
   }
@@ -34,7 +35,27 @@ export default class ContactService {
       const result: any = await contactModel.getKeyByEmail(email)
       return result.length > 0 ? result[0] : result
     } catch (error) {
-      Logger.error(colors.red('Error OrderService getKeyByEmail '), error)
+      Logger.error(colors.red('Error contactModel getKeyByEmail '), error)
+      throw new Error('ERROR TECNICO')
+    }
+  }
+
+  getKeysContactByCreatorPhone = async (creatorPhone: number): Promise<string[] | undefined> => {
+    try {
+      const result: any = await contactModel.getKeysContactByCreatorPhone(creatorPhone)
+      return result
+    } catch (error) {
+      Logger.error(colors.red('Error contactModel getKeysContactByCreatorPhone '), error)
+      throw new Error('ERROR TECNICO')
+    }
+  }
+
+  getContactByKey = async (key: string): Promise<string[] | undefined> => {
+    try {
+      const result: any = await contactModel.getContactByKey(key)
+      return result !== null ? JSON.parse(result) : result
+    } catch (error) {
+      Logger.error(colors.red('Error contactModel getContactByKey '), error)
       throw new Error('ERROR TECNICO')
     }
   }

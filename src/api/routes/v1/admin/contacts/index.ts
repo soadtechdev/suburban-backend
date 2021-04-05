@@ -6,5 +6,6 @@ import schema from './access/schema'
 const router = Router()
 
 router.post('/', validator(schema.create), encargos.createContact)
+router.get('/:creatorPhone', encargos.getContactByCreatorPhone)
 
 export default router
