@@ -5,3 +5,7 @@ export enum StatusService {
   ENPROCESO = 4,
   TERMINADO = 5
 }
+export enum typeService {
+  INCOME = 1,
+  OUTCOME = 2
+}
