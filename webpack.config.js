@@ -6,7 +6,7 @@ module.exports = {
   mode: 'production',
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'suburban-ws.js'
+    filename: 'finance-ws.js'
   },
   target: 'node',
   externals: [nodeExternals()],

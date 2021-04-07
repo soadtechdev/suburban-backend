@@ -8,7 +8,7 @@ const transactionModal = TransactionModal.getInstance()
 export default class TransactionService {
   private static instance: TransactionService
 
-  public static getInstance(): TransactionService {
+  public static getInstance (): TransactionService {
     if (TransactionService.instance === undefined) {
       TransactionService.instance = new TransactionService()
     }
@@ -29,7 +29,34 @@ export default class TransactionService {
       const result = await transactionModal.create(data.id, creatorPhone, type, JSON.stringify(data))
       return result
     } catch (error) {
-      Logger.error(colors.red('Error contactModel createContact '), error)
+      Logger.error(colors.red('Error TransactionService createContact '), error)
+      throw new Error('ERROR TECNICO')
+    }
+  }
+  getKeysByCreatorPhoneAndType = async (creatorPhone: number, type: number): Promise<Array<string> | undefined> => {
+    try {
+      const result = await transactionModal.getKeysByCreatorPhoneAndType(creatorPhone, type)
+      return result
+    } catch (error) {
+      Logger.error(colors.red('Error TransactionService getKeysByCreatorPhoneAndType '), error)
+      throw new Error('ERROR TECNICO')
+    }
+  }
+  getKeysByCreatorPhone = async (creatorPhone: number): Promise<Array<string> | undefined> => {
+    try {
+      const result = await transactionModal.getKeysByCreatorPhone(creatorPhone)
+      return result
+    } catch (error) {
+      Logger.error(colors.red('Error TransactionService getKeysByCreatorPhoneAndType '), error)
+      throw new Error('ERROR TECNICO')
+    }
+  }
+  getByKey = async (key: string): Promise<object | undefined> => {
+    try {
+      const result = await transactionModal.getByKey(key)
+      return result !== undefined ? JSON.parse(result) : result
+    } catch (error) {
+      Logger.error(colors.red('Error TransactionService getKeysByKey '), error)
       throw new Error('ERROR TECNICO')
     }
   }
