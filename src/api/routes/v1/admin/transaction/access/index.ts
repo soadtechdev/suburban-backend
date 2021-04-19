@@ -21,7 +21,6 @@ export const getTransactionByCreator: RequestHandler = async (req: Request, res:
   try {
     // Buscar por tipo de transaccion
     if (type !== undefined) {
-
       if (![typeService.INCOME, typeService.OUTCOME].includes(Number(type))) return BadRequestError(res, 'No type found')
 
       const keysTransaction = await transactionService.getKeysByCreatorPhoneAndType(creatorPhone, Number(type))
@@ -31,7 +30,6 @@ export const getTransactionByCreator: RequestHandler = async (req: Request, res:
       let cont = 0
       const transactions: Array<object> = []
       while (keysTransaction !== undefined && cont < keysTransaction.length) {
-
         const transaction = await transactionService.getByKey(keysTransaction[cont])
         if (transaction !== undefined) {
           transactions.push(transaction)
@@ -45,7 +43,6 @@ export const getTransactionByCreator: RequestHandler = async (req: Request, res:
       let cont = 0
       const transactions: Array<object> = []
       while (keysTransaction !== undefined && cont < keysTransaction.length) {
-
         const transaction = await transactionService.getByKey(keysTransaction[cont])
         if (transaction !== undefined) {
           transactions.push(transaction)

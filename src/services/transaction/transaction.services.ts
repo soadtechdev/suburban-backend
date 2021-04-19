@@ -8,7 +8,7 @@ const transactionModal = TransactionModal.getInstance()
 export default class TransactionService {
   private static instance: TransactionService
 
-  public static getInstance (): TransactionService {
+  public static getInstance(): TransactionService {
     if (TransactionService.instance === undefined) {
       TransactionService.instance = new TransactionService()
     }
